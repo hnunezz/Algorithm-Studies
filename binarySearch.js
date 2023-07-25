@@ -1,4 +1,4 @@
-const arr = [
+const array = [
   21, 40, 88, 52, 93, 91, 31, 17, 28, 4, 37, 99, 88, 87, 20, 32, 4, 59, 70, 14,
   37, 7, 98, 44, 62, 45, 96, 24, 33, 53, 50, 71, 44, 77, 15, 74, 67, 100, 36, 8,
   23, 20, 96, 65, 93, 96, 91, 67, 30, 94, 92, 31, 33, 80, 92, 38, 96, 51, 66,
@@ -8,36 +8,38 @@ const arr = [
 ];
 
 const linearSearch = (arr, target) => {
-  let count,
-    attempts = 0;
+  const normalizedArr = normalize(arr);
 
-  while (count <= arr.length) {
+  let count = 0;
+  let attempts = 0;
+
+  while (count <= normalizedArr.length) {
     attempts++;
 
     if (arr[count] === target) {
-      console.log(`value: ${target}, attempts ${attempts}`);
-      return;
+      return { value: target, attempts: attempts };
     }
 
     count++;
   }
+
+  return null;
 };
 
 const binarySearch = (arr, target) => {
-  let start = 0;
-  let end = arr.length - 1;
-  let attempts = 0;
-
   const normalizedArr = normalize(arr);
 
+  let start = 0;
+  let end = normalizedArr.length - 1;
+  let attempts = 0;
+
   while (start <= end) {
-    let middle = Math.floor((end + start) / 2);
+    let middle = Math.floor((start + end) / 2);
     let el = normalizedArr[middle];
     attempts++;
 
     if (el === target) {
-      console.log(`value: ${target}, attempts ${attempts}`);
-      return;
+      return { value: target, attempts: attempts };
     }
 
     if (el > target) {
@@ -45,9 +47,9 @@ const binarySearch = (arr, target) => {
     } else {
       start = middle + 1;
     }
-
-    return null;
   }
+
+  return null;
 };
 
 //*-------------
@@ -59,5 +61,5 @@ function normalize(arr) {
 
 //*-------------
 
-binarySearch(arr, 100);
-linearSearch(arr, 100);
+console.log(binarySearch(array, 100));
+console.log(linearSearch(array, 100));
